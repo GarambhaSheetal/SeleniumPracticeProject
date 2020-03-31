@@ -1,4 +1,4 @@
-package automation_project_test;
+package automation_project_pages;
 
 import java.util.List;
 
@@ -9,16 +9,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import automation_project_base.BaseClass;
+
 public class GoogleSearchPage extends BaseClass{
-
-public static void main(String[] args) {
-		
-		launch_Browser();
-		GoogleSearchPage.search();
-		close_browser();
-	}
-
-	public static void search() {
+	
+	
+	public static void search(WebDriver driver) {
 		try {
 			WebElement searchbar = driver.findElement(By.xpath("//input[@title='Search']"));
 			searchbar.sendKeys("flipkart");
@@ -49,8 +45,8 @@ public static void main(String[] args) {
 			WebElement flipkartlink = driver.findElement(By.xpath("(//*[contains(text(),'www.flipkart.com')])[1]"));
 			flipkartlink.click();
 			System.out.println("below");
-			
 			Thread.sleep(10);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e);
@@ -58,4 +54,6 @@ public static void main(String[] args) {
 		}
 
 	}
+
+
 }

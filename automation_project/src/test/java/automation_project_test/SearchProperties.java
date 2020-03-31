@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,23 +15,22 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchProperties extends BaseClass {
 
-	
 	public static void main(String args[]) throws InterruptedException {
 
 		launch_Browser();
 		searchProperties();
-		searchResult();
-		close_browser();
+	
+		// close_browser();
 	}
 
 	public static void searchProperties() throws InterruptedException {
-		
+
 		wait = new WebDriverWait(driver, 20);
-		
-		//Wait for search field to be clickable
+
+		// Wait for search field to be clickable
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@placeholder='Where are you going?']")));
-		
-		//Enter pune in search field
+
+		// Enter pune in search field
 		WebElement dest = driver.findElement(By.xpath("//input[@placeholder='Where are you going?']"));
 		dest.clear();
 		dest.sendKeys("Pune");
@@ -49,17 +49,9 @@ public class SearchProperties extends BaseClass {
 			}
 		}
 
-		//Scroll the page
+		// Scroll the page
 		((JavascriptExecutor) driver).executeScript("window.scrollBy(0,550)", "");
-		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Check-in - Check-out']")));
-
-		//By checkInLocator = By.xpath("//div[contains(@class, 'b-datepicker')][@data-mode='checkin']");
-		//By calendarLocator = By.cssSelector(".bui-calendar__content");
-		// Wait until checkIn element is displayed and then click on it
-		// wait.until(ExpectedConditions.visibilityOfElementLocated(checkInLocator)).click();
-		// Wait until calendar is displayed
-		// wait.until(ExpectedConditions.visibilityOfElementLocated(calendarLocator));
-
+		
 		// Work out today and tomorrow
 		LocalDate today = LocalDate.now();
 		System.out.println(today);
@@ -77,9 +69,37 @@ public class SearchProperties extends BaseClass {
 
 		WebElement search_button = driver.findElement(By.xpath("//div/button[@data-sb-id='main']"));
 		search_button.click();
+		
+		
+		
+		 List<WebElement> pagination =driver.findElements(By.xpath("//li[@class='bui-pagination__item sr_pagination_item']/a")); 
+	        Thread.sleep(5000);
+	        if(pagination.size()>0){ 
+	        System.out.println("pagination exists and size=>"+pagination.size()); 
+	        int page_no=pagination.size();
+	        for(int i=2; i <=pagination.size(); i++){ 
 
+	        	Thread.sleep(15000); 
+	        	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='heading']")));
+	        	List<WebElement> proplist = driver.findElements(By.xpath("//a[@class='hotel_name_link url']/span[1]"));
+	        	for(int j =0; j< proplist.size();j++)
+	        	{
+	             
+	            System.out.println(j+" "+proplist.get(j).getText());
+	            
+	        	} 
+	        	JavascriptExecutor js = (JavascriptExecutor) driver; 
+	        	js.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//li[@class='bui-pagination__item sr_pagination_item']/a")));    
+	            System.out.println("page number: "+ i);
+	            driver.findElement(By.xpath("//li[@class='bui-pagination__item sr_pagination_item']["+i+"]")).click();;
+	            Thread.sleep(5000);   //wait 
+	        }
+	            } else { 
+	                System.out.println("no pagination");
+	            } 
 	}
-
+	
+	
 	private static void selectDate(WebDriver driver, LocalDate date) {
 		// Looking at the markup the attribute data-date is formatted as an
 		// ISO_LOCAL_DATE
@@ -90,10 +110,6 @@ public class SearchProperties extends BaseClass {
 		// Wait for date element to be visible, then click on it
 		wait.until(ExpectedConditions.visibilityOfElementLocated(dateLocator)).click();
 	}
+
 	
-	public static void searchResult()
-	{
-		
-		
-	}	
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="59" started-at="2020-03-31T13:21:31Z" finished-at="2020-03-31T13:21:31Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="59" started-at="2020-03-31T13:21:31Z" finished-at="2020-03-31T13:21:31Z">
+      <class name="automation_project_test.verifyGoogleSearch">
+        <test-method status="PASS" signature="verifyFlipkartGoogleSearch()[pri:0, instance:automation_project_test.verifyGoogleSearch@26653222]" name="verifyFlipkartGoogleSearch" duration-ms="41" started-at="2020-03-31T18:51:31Z" finished-at="2020-03-31T18:51:31Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyFlipkartGoogleSearch -->
+      </class> <!-- automation_project_test.verifyGoogleSearch -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
